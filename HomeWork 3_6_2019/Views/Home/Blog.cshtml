@@ -1,0 +1,83 @@
+﻿@using HomeWork_3_6_2019.Models
+@model  BlogWithCookie
+<!-- Page Content -->
+
+<div class="container">
+
+	<div class="row">
+
+		<!-- Blog Post Content Column -->
+		<div class="col-lg-8">
+
+			<!-- Blog Post -->
+			<!-- Title -->
+			<h1>@Model.blog.Title</h1>
+
+			<!-- Post Content -->
+			<p class="lead">@Model.blog.Boichvei</p>
+
+			<hr>
+
+			<!-- Blog Comments -->
+			<!-- Comments Form -->
+			<div class="well">
+				<h4>Leave a Comment:</h4>
+				<form role="form" method="post" action="~/Home/AddComment">
+					<div class="form-group">
+						<input type="hidden" name="id" value="0" />
+						<input type="hidden" name="Blogid" value="@Model.blog.Id" />
+						@if (Model.NewComer)
+						{
+							<input type="text" id="Cmnt" name="Name" placeholder="Welcome! Your name:" />
+						}
+						else
+						{
+							<h3 value="Pupa" >Welcome back @Model.Name!</h3>
+							<input type="hidden" name="Name" value="@Model.Name" />
+						}
+						<textarea id="Cmnt" class="form-control"  rows="3" name="Comment"></textarea>
+					</div>
+					<button type="submit" disabled="disabled" id="Csubbtn" class="btn btn-primary">Submit</button>
+				</form>
+			</div>
+
+			<hr>
+
+			<!-- Comment -->
+			@foreach (BlogComment b in Model.blog.Comments)
+			{
+				<div class="media">
+					<div class="media-body">
+						<h4 class="media-heading">
+							<small>@b.Name says</small>
+						</h4>
+						@b.Comment
+					</div>
+				</div>
+			}
+
+		</div>
+
+	</div>
+	<!-- /.row -->
+
+	<hr>
+
+	<!-- Footer -->
+	<footer>
+		<div class="row">
+			<div class="col-lg-12">
+				<p>Copyright &copy; Your Website 2014</p>
+			</div>
+		</div>
+		<!-- /.row -->
+	</footer>
+
+</div>
+
+
+@section Scripts
+{
+	<script src="~/Scripts/submit.js"></script>
+}
+
